@@ -1,0 +1,209 @@
+<div class="container-fluid" ng-app= "myApp" ng-controller="ambulatoriumCtrl">
+    <div class="row">
+        <legend>Formularz rejestracji</legend>
+        <div class="col-md-12" align="right">
+            <form class="form-horizontal"  novalidate>
+                    <fieldset>
+
+                        <legend>
+                            KROK 1 : PODAJ PREFERENCJE WIZYTY
+                        </legend>
+                        <div class="jumbotron">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="poradnia">Wybierz poradnię z listy*: </label>
+                                <div class="col-md-4">
+                                    <select id="poradnia" name="poradnia" class="form-control" ng-model="por" ng-options="poradnia.opis for poradnia in poradnie" ng-change="changedOption(por)">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="lekarz">Wybierz lekarza z listy*: </label>
+                                <div class="col-md-4">
+                                    <select id="lekarz" name="lekarz" class="form-control" ng-model="wybrany" ng-options="lekarz.nazwisko for lekarz in lekarzeByPoradnia">
+                                        <!--<option value="lekarz" ng-repeat="lekarz in lekarzeByPoradnia">{{lekarz.nazwisko}} {{lekarz.imie}}</option>-->
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Wybierz datę z kalendarza*: </label>
+                                <div class="col-md-2">
+                                    <input class="form-control" id="date" name="date" type="date" ng-model="dzienzKalendarza" ng-change="wyswietlDzien(); pokazGodziny()" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Wybierz przedział godzin*: </label>
+                                <div class="col-md-2">
+                                    <select id="godzina" name="godzina" class="form-control" ng-model="godz">
+                                        <option ng-value="godzina.godz_od" ng-repeat="godzina in godziny">{{godzina.godz_od}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <legend>
+                            KROK 2 : PODAJ DANE OSOBOWE I ADRESOWE
+                        </legend>
+                        <div class="jumbotron">
+                            <div class="form-group">
+                                <h4>Jeżeli jesteś naszym pacjentem wprowadź numer pesel, jeżeli nie kliknij "DODAJ PACJENTA" wprowadź swoje dane, zapisz, a następnie w polu pesel wprowadź swój pesel</h4>
+                                <label class="col-md-4 control-label" for="pesel">Wpisz numer PESEL*: </label>
+                                <div class="col-md-4">
+                                    <input id="pesel" name="pesel" ng-model="pesel" ng-change="SearchPesel(pesel)" type="text" placeholder="" class="form-control input-md" required="">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-primary" ng-click="addNewPacjentModal" data-toggle="modal" data-target="#addNewPacjentModal">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        Dodaj nowego pacjenta
+                                    </button>
+                                </div>
+
+                                </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="imię">Podaj imię*: </label>
+                                <div class="col-md-4">
+                                    <input id="imię" name="imię" type="text" placeholder="" class="form-control input-md" required="" value="{{pacjentByPesel.imie}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="nazwisko">Podaj nazwisko*: </label>
+                                <div class="col-md-4">
+                                    <input id="nazwisko" name="nazwisko" type="text" placeholder="" class="form-control input-md" required="" value="{{pacjentByPesel.nazwisko}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="ulica">Podaj ulicę: </label>
+                                <div class="col-md-4">
+                                    <input id="ulica" name="ulica" type="text" placeholder="" class="form-control input-md" required="" value="{{pacjentByPesel.ulica}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="numer">Podaj nr domu: </label>
+                                <div class="col-md-2">
+                                    <input id="numer" name="numer" type="text" placeholder="" class="form-control input-md" required="" value="{{pacjentByPesel.nr_domu}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="nr lokalu">Podaj nr lokalu:</label>
+                                <div class="col-md-2">
+                                    <input id="nr lokalu" name="nr lokalu" type="text" placeholder="" class="form-control input-md" value="{{pacjentByPesel.nr_lokalu}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="kod pocztowy">Wpisz kod-pocztowy*:</label>
+                                <div class="col-md-2">
+                                    <input id="kod pocztowy" name="kod_pocztowy" type="text" placeholder="" class="form-control input-md" required="" maxlength="6" value="{{pacjentByPesel.kod_pocztowy}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="tel">Wpisz nr telefonu*:</label>
+                                <div class="col-md-2">
+                                    <input id="tel" name="tel" type="text" placeholder="000-000-000" class="form-control input-md" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" value="{{pacjentByPesel.nr_telefonu}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="email">Podaj adres e-mail*:</label>
+                                <div class="col-md-4">
+                                    <input id="email" name="email" type="email" ng-model="pacjentByPesel.email" class="form-control input-md" required="">
+                                </div>
+                            </div>
+                            <div class="form-group-button">
+                            <button type="button" class="btn btn-success" ng-click="addNewRezerwacja(); sendEmail()" data-toggle="modal" data-target="#addRezerwacje" onclick="window.location.href='#home1'">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                Potwierdź rezerwację
+                            </button>
+                            </div>
+    </div>
+
+    <div class="modal fade" id="addNewPacjentModal" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Dodaj nowego pacjenta</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                        <label for="add-pacjent-imie" class="control-label">Wprowadź imię*:</label>
+                        <input type="text" class="form-control" id="add-pacjent-imie" ng-model="newPacjentImie" required="">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                        <label for="add-pacjent-nazwisko" class="control-label">Wprowadź nazwisko*:</label>
+                        <input type="text" class="form-control" id="add-pacjent-nazwisko" ng-model="newPacjentNazwisko" required>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                        <label for="add-pacjent-pesel" class="control-label">Wprowadź pesel*:</label>
+                        <input type="text" class="form-control" id="add-pacjent-pesel" ng-model="newPacjentPesel" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                        <label for="add-pacjent-ulica" class="control-label">Wprowadź ulicę:</label>
+                        <input type="text" class="form-control" id="add-pacjent-ulica" ng-model="newPacjentUlica">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                        <label for="add-pacjent-nr_domu" class="control-label">Wprowadź nr domu*:</label>
+                        <input type="text" class="form-control" id="add-pacjent-nr_domu" ng-model="newPacjentNrDomu"required="">
+                    </div>
+                        <div class="col-md-6">
+                        <label for="add-pacjent-nr_lokalu" class="control-label">Wprowadź nr lokalu:</label>
+                        <input type="text" class="form-control" id="add-pacjent-nr_lokalu" ng-model="newPacjentNrLokalu" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                        <label for="add-pacjent-miejscowosc" class="control-label">Wprowadź miejscowość*:</label>
+                        <input type="text" class="form-control" id="add-pacjent-miejscowosc" ng-model="newPacjentMiejscowosc" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                        <label for="add-pacjent-kod_pocztowy" class="control-label">Wprowadź kod pocztowy*:</label>
+                        <input type="text" class="form-control" id="add-pacjent-kod_pocztowy" ng-model="newPacjentKod" placeholder="00-000" required="">
+                    </div>
+                        <div class="col-md-6">
+                        <label for="add-pacjent-nr_telefonu" class="control-label">Wprowadź nr telefonu*:</label>
+                        <input type="text" class="form-control" id="add-pacjent-nr_telefonu" ng-model="newPacjentTelefon" placeholder="000-000-000" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                        <label for="add-pacjent-email" class="control-label">Wprowadź adres email*:</label>
+                        <input type="text" class="form-control" id="add-pacjent-email" ng-model="newPacjentEmail"placeholder="example@example.com" required="">
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <h4> * -oznacza pola wymagane</h4>
+                    <button class="btn btn-success" ng-click="addNewPacjent(pacjenci); sendEmail()" data-dismiss="modal">Dodaj pacjenta</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Anuluj</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+</form>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
