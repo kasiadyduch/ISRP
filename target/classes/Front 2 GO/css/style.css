@@ -1,0 +1,137 @@
+body {
+    background-color: #ffffff;
+    padding-top: 200px;
+    color: #7dcd38;
+    background-image: url("Depositphotos_26681701_xxl_max-1.jpg");
+    background-size: 100%;
+    background-attachment: fixed;
+}
+
+.navbar {
+    background-color: #00a8b1;
+    font-family: 'Viga', sans-serif;
+    background-attachment: fixed;
+
+}
+
+.container {
+    color: yellowgreen;
+}
+.navbar-nav li a {
+
+    color: #e7f769 !important;
+    font-size: 20px;
+}
+.navbar-nav li a:hover{
+    color: #ff7e0c !important;;
+}
+
+b {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+.modal-header {
+    background-color: #00a8b1;
+    color: #e7f769;
+    text-align: center;
+}
+.modal-body {
+    background-color: #e7f769;
+    color: #00a8b1;
+    text-align: center;
+}
+.modal-footer {
+    background-color: #00a8b1;
+    color: #e7f769;
+    text-align: center;
+}
+
+h3 {
+    padding: 15px;
+    color: #e7f769;
+    font-size: 35px;
+    font-style: unset;
+    text-decoration: underline;
+}
+h4 {
+    padding: 15px;
+}
+
+p {
+    padding: 15px;
+    color: #e7f769;
+    font-size: 25px;
+}
+
+
+.button1{
+    background-color: #00a8b1;
+    color: #e7f769;
+    position: center;
+
+}
+.button-2 {
+    background-color: #e7f769;
+    color: #00a8b1;
+    position: center;
+    padding: 25px;
+    margin: 50px;
+}
+.button-3 {
+    background-color: #e7f769;
+    color: #00a8b1;
+    position:center;
+    padding: 25px;
+    margin: 150px;
+}
+
+.jumbotron {
+    opacity: 0.8;
+    color: #e7f769;
+    text-align: center;
+    background-color: #00a8b1;
+}
+
+legend {
+    opacity: 0.7;
+    text-align: center;
+    color: #e7f769;
+    font-size: 30px;
+    background-color: #00a8b1;
+}
+label {
+    padding: 30px;
+}
+
+
+@media only screen and (max-width: 900px) {
+    #navbar {width: 100%; background-attachment: fixed;}
+    #menu {width:88%; position:absolute; height:30px;}
+    #menu h5 {display: none;}
+    #menu ul li {display: inline; }
+    #menu ul li:after {content: " |";}
+    #content {width: 98%;position:relative; top: 30px;margin-top:5%;}
+}
+@media only screen and (max-width: 768px) {
+    #navbar {width: 100%; background-attachment: fixed;}
+    [class*="col-"] {
+        width: 100%;
+    }
+}
+@media only screen and (min-width: 768px) {
+    #navbar {width: 100%; background-attachment: fixed;}
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}

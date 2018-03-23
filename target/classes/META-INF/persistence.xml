@@ -1,0 +1,41 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+                    http://java.sun.com/xml/ns/persistence
+                    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+
+    <persistence-unit name="xyz" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>app.model.classes.Lekarz</class>
+        <class>app.model.classes.ZakladyPracy</class>
+        <class>app.model.classes.Rezerwacja</class>
+        <class>app.model.classes.Pacjent</class>
+        <class>app.model.classes.Badania</class>
+        <class>app.model.classes.Gabinet</class>
+        <class>app.model.classes.Poradnia</class>
+        <class>app.model.classes.PoradnieLekarze</class>
+        <class>app.model.classes.RezerwacjeMP</class>
+
+        <properties>
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/postgres" />-->
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-54-217-243-160.eu-west-1.compute.amazonaws.com:5432/dahhds0qvgp6ae?sslmode=require" />
+            <!--<property name="javax.persistence.jdbc.user" value="postgres" />-->
+            <property name="javax.persistence.jdbc.user" value="ftwmhdolwzqsvt" />
+            <!--<property name="javax.persistence.jdbc.password" value="Kasia123" />-->
+            <property name="javax.persistence.jdbc.password" value="b4e46857c4a4ce6b84042650d92864d83b4c136ed32790d37ffd38c948633253" />
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+
+            <property name="hibernate.default_schema" value="public"/>
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.format_sql" value="false" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="validate" />
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
+
+        </properties>
+    </persistence-unit>
+
+
+</persistence>
