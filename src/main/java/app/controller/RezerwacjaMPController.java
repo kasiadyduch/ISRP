@@ -34,7 +34,7 @@ public class RezerwacjaMPController {
 
     @RequestMapping(value = "rezerwacjemp/add", method = RequestMethod.POST)
     public void createRezerwacjaMP(@RequestBody RezerwacjeMP rezerwacjeMP) {
-        rezerwacjeMPRepo.save( new RezerwacjeMP( 0, rezerwacjeMP.getId_pacjenta(), rezerwacjeMP.getId_badania(), rezerwacjeMP.getId_zakladu (), rezerwacjeMP.getData() ) );
+        rezerwacjeMPRepo.save( new RezerwacjeMP( 0, rezerwacjeMP.getId_pacjenta(), rezerwacjeMP.getId_zakladu(), rezerwacjeMP.getId_badania(), rezerwacjeMP.getData() ) );
     }
 
     @RequestMapping(value = "/rezerwacjemp/{rezerwacjempid}", method = RequestMethod.DELETE)
